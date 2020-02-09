@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { formatDistance, parseISO } from "date-fns";
-import pt from "date-fns/locale/pt-BR";
-import api from "../../services/api";
-import Dropzone from "react-dropzone";
-import socket from "socket.io-client";
+import React, { useState, useEffect } from 'react';
+import { formatDistance, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
+import api from '../../services/api';
+import Dropzone from 'react-dropzone';
+import socket from 'socket.io-client';
 
-import { MdInsertDriveFile } from "react-icons/md";
+import { MdInsertDriveFile } from 'react-icons/md';
 
-import "./styles.css";
-import logo from "../../assets/logo.svg";
+import './styles.css';
+import logo from '../../assets/logo.svg';
 
 export default function Box({ match }) {
   const { id } = match.params;
@@ -29,9 +29,9 @@ export default function Box({ match }) {
   }, []);
 
   function subscribeToNewFiles() {
-    const io = socket("https://mybox-omnistack.herokuapp.com");
+    const io = socket('https://mybox-omnistack.herokuapp.com');
 
-    io.on("file", data => {
+    io.on('file', data => {
       setBoxContent({ data, ...boxContent });
     });
   }
@@ -40,22 +40,22 @@ export default function Box({ match }) {
     files.forEach(file => {
       const data = new FormData(); // formData is the way to send files to the backend without using a form.
 
-      data.append("file", file);
+      data.append('file', file);
 
       api.post(`boxes/${id}/files`, data);
     });
   }
 
   return (
-    <div id="box-container">
+    <div id='box-container'>
       <header>
-        <img src={logo} alt="logo" />
-        <h1>RocketSeat</h1>
+        <img src={logo} alt='logo' />
+        <h1>{boxContent.title}</h1>
       </header>
 
       <Dropzone onDropAccepted={handleUpload}>
         {({ getRootProps, getInputProps }) => (
-          <div className="upload" {...getRootProps()}>
+          <div className='upload' {...getRootProps()}>
             <input {...getInputProps()} />
 
             <p>Arraste o(s) arquivo(s) ou clique aqui</p>
@@ -67,8 +67,8 @@ export default function Box({ match }) {
         {boxContent.files &&
           boxContent.files.map(file => (
             <li key={file._id}>
-              <a className="fileInfo" href={file.url} target="blank">
-                <MdInsertDriveFile size={24} color="#A5Cfff" />
+              <a className='fileInfo' href={file.url} target='blank'>
+                <MdInsertDriveFile size={24} color='#A5Cfff' />
                 <strong>{file.title}</strong>
               </a>
 
