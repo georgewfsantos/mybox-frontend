@@ -19,8 +19,8 @@ function App() {
           content="This is my testing description"
         />
         <meta property="og:image" content="./meta_image.jpeg" />
+        <Routes />
       </Helmet>
-      <Routes />
     </>
   );
 }
